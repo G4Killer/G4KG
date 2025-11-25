@@ -1,0 +1,63 @@
+/* 左侧侧边栏 */
+.sidebar {
+    flex: 0 0 300px; /* 固定宽度 */
+    background-color: #ffffff;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* 侧边栏标题 */
+.sidebar-title {
+    font-size: 20px;
+    font-weight: bold; /* 加粗 */
+    padding: 15px 20px;
+    text-align: left; /* 左对齐 */
+    background-color: #f0f4f8; /* 浅灰背景 */
+    border-bottom: 2px solid #ddd; /* 下边框 */
+    margin: 0 0 20px 0; /* 下方间距 */
+    position: sticky; /* 固定标题 */
+    top: 0;
+    z-index: 1;
+    border-radius: 8px;
+}
+
+/* 表单容器样式 */
+.form-container {
+    display: flex;
+    flex-direction: column; /* 垂直布局 */
+    gap: 20px; /* 间距 */
+    padding: 10px;
+    background-color: #f9f9f9; /* 背景颜色 */
+    border-radius: 8px; /* 圆角 */
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05); /* 内部阴影 */
+}
+
+.form-container .el-form-item {
+    display: flex;
+    align-items: center; /* 垂直居中 */
+    text-align: left; /* 左对齐 */
+}
+
+.form-container .el-form-item .el-form-item__label {
+    flex: 0 0 120px; /* 标签固定宽度 */
+    margin-right: 10px; /* 间距 */
+    white-space: nowrap; /* 防止换行 */
+    font-weight: 600; /* 加粗文字 */
+}
+
+.form-container .el-form-item .el-form-item__content {
+    flex: 1; /* 内容区域占满剩余空间 */
+    display: flex;
+    align-items: center;
+}
+
+/* 修改表单项样式，确保开关对齐 */
+.el-form-item .el-switch {
+    height: 32px; /* 调整高度与输入框一致 */
+    display: flex;
+    align-items: center; /* 垂直居中 */
+}

@@ -1,0 +1,49 @@
+.dropdown {
+    font-size: 16px;
+    color: black; /* 按钮字体颜色 */
+    cursor: pointer;
+}
+
+/* 触发下拉菜单的文字样式 */
+.el-dropdown-link {
+    color: white;
+    display: flex;
+    align-items: center;
+    outline: none; /* 移除焦点的黑色加粗边框 */
+}
+
+.el-dropdown-link:focus {
+    outline: none; /* 再次确保焦点时无边框 */
+}
+
+/* 下拉菜单容器 */
+.dropdown-menu {
+    display: flex; /* 保留弹性布局 */
+    flex-direction: column; /* 设置为纵向排列 */
+    background-color: #2c6a7f; /* 改为白色背景 */
+    padding: 8px 16px;
+    border-radius: 4px; /* 添加圆角 */
+    border: 1px solid #dcdcdc; /* 浅灰色边框 */
+    gap: 8px; /* 每个选项之间增加间距 */
+}
+
+
+/* 下拉菜单子项 */
+.dropdown-item {
+    font-size: 14px;
+    color: white; /* 改为白色字体 */
+    padding: 8px 12px;
+    transition: background-color 0.3s ease;
+    border-bottom: 1px solid #ffffff; /* 添加白色分隔线 */
+}
+
+/* 移除最后一个选项的底部边框 */
+.dropdown-item:last-child {
+    border-bottom: none; /* 移除最后一项的分隔线 */
+}
+
+/* 鼠标悬停效果 */
+.dropdown-item:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* 悬停时背景变浅灰色 */
+    color: black; /* 字体保持黑色 */
+}

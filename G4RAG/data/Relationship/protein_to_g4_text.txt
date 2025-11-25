@@ -1,0 +1,2 @@
+RelationshipType: ProteinToG4 | RelationName: Bind on
+RelationshipType: ProteinToG4 | RelationName: As TF bind on

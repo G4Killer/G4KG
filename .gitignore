@@ -1,0 +1,26 @@
+# General
+.DS_Store
+Thumbs.db
+*.log
+
+# IDE / Editor
+.idea/
+.vscode/
+*.iml
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+
+# Java / Gradle
+G4KG_BACKEND/g4kg-demo/.gradle/
+G4KG_BACKEND/g4kg-demo/build/
+
+# Node / Vue
+G4KG_FRONT/node_modules/
+G4KG_FRONT/dist/
+
+# RAG service
+G4RAG/server.log

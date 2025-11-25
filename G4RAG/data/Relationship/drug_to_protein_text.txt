@@ -1,0 +1,83 @@
+RelationshipType: DrugToProtein | RelationName: Target | Action: Unknown
+RelationshipType: DrugToProtein | RelationName: Transporter | Action: Inhibitor
+RelationshipType: DrugToProtein | RelationName: Target | Action: Inhibitor
+RelationshipType: DrugToProtein | RelationName: Carrier | Action: Unknown
+RelationshipType: DrugToProtein | RelationName: Transporter | Action: Substrate
+RelationshipType: DrugToProtein | RelationName: Enzyme | Action: Substrate
+RelationshipType: DrugToProtein | RelationName: Enzyme | Action: Inhibitor
+RelationshipType: DrugToProtein | RelationName: Target | Action: Antagonist
+RelationshipType: DrugToProtein | RelationName: Transporter | Action: Unknown
+RelationshipType: DrugToProtein | RelationName: Target | Action: Agonist
+RelationshipType: DrugToProtein | RelationName: Target | Action: Ligand
+RelationshipType: DrugToProtein | RelationName: Target | Action: Substrate
+RelationshipType: DrugToProtein | RelationName: Target | Action: Cofactor
+RelationshipType: DrugToProtein | RelationName: Transporter | Action: Inducer
+RelationshipType: DrugToProtein | RelationName: Carrier | Action: Binder
+RelationshipType: DrugToProtein | RelationName: Enzyme | Action: Unknown
+RelationshipType: DrugToProtein | RelationName: Target | Action: Potentiator
+RelationshipType: DrugToProtein | RelationName: Target | Action: Positive allosteric modulator
+RelationshipType: DrugToProtein | RelationName: Enzyme | Action: Modulator
+RelationshipType: DrugToProtein | RelationName: Target | Action: Inducer
+RelationshipType: DrugToProtein | RelationName: Enzyme | Action: Inducer
+RelationshipType: DrugToProtein | RelationName: Target | Action: Blocker
+RelationshipType: DrugToProtein | RelationName: Target | Action: Modulator
+RelationshipType: DrugToProtein | RelationName: Carrier | Action: Regulator
+RelationshipType: DrugToProtein | RelationName: Target | Action: Cross-linking/alkylation
+RelationshipType: DrugToProtein | RelationName: Carrier | Action: Substrate
+RelationshipType: DrugToProtein | RelationName: Target | Action: Activator
+RelationshipType: DrugToProtein | RelationName: Target | Action: Partial agonist
+RelationshipType: DrugToProtein | RelationName: Carrier | Action: Other/unknown
+RelationshipType: DrugToProtein | RelationName: Target | Action: Other/unknown
+RelationshipType: DrugToProtein | RelationName: Target | Action: Adduct
+RelationshipType: DrugToProtein | RelationName: Target | Action: Multitarget
+RelationshipType: DrugToProtein | RelationName: Carrier | Action: Ligand
+RelationshipType: DrugToProtein | RelationName: Target | Action: Incorporation into and destabilization
+RelationshipType: DrugToProtein | RelationName: Target | Action: Downregulator
+RelationshipType: DrugToProtein | RelationName: Target | Action: Intercalation
+RelationshipType: DrugToProtein | RelationName: Target | Action: Binder
+RelationshipType: DrugToProtein | RelationName: Carrier | Action: Antagonist
+RelationshipType: DrugToProtein | RelationName: Enzyme | Action: Other
+RelationshipType: DrugToProtein | RelationName: Target | Action: Inverse agonist
+RelationshipType: DrugToProtein | RelationName: Transporter | Action: Downregulator
+RelationshipType: DrugToProtein | RelationName: Target | Action: Antibody
+RelationshipType: DrugToProtein | RelationName: Target | Action: Suppressor
+RelationshipType: DrugToProtein | RelationName: Carrier | Action: Carrier
+RelationshipType: DrugToProtein | RelationName: Target | Action: Negative modulator
+RelationshipType: DrugToProtein | RelationName: Target | Action: Stimulator
+RelationshipType: DrugToProtein | RelationName: Target | Action: Regulator
+RelationshipType: DrugToProtein | RelationName: Carrier | Action: Inhibitor
+RelationshipType: DrugToProtein | RelationName: Enzyme | Action: Activator
+RelationshipType: DrugToProtein | RelationName: Target | Action: Metabolizer
+RelationshipType: DrugToProtein | RelationName: Target | Action: Other
+RelationshipType: DrugToProtein | RelationName: Transporter | Action: Binder
+RelationshipType: DrugToProtein | RelationName: Target | Action: Product of
+RelationshipType: DrugToProtein | RelationName: Target | Action: Cleavage
+RelationshipType: DrugToProtein | RelationName: Transporter | Action: Agonist
+RelationshipType: DrugToProtein | RelationName: Carrier | Action: Agonist
+RelationshipType: DrugToProtein | RelationName: Transporter | Action: Other
+RelationshipType: DrugToProtein | RelationName: Carrier | Action: Inducer
+RelationshipType: DrugToProtein | RelationName: Target | Action: Binding
+RelationshipType: DrugToProtein | RelationName: Target | Action: Oxidizer
+RelationshipType: DrugToProtein | RelationName: Enzyme | Action: Downregulator
+RelationshipType: DrugToProtein | RelationName: Enzyme | Action: Cofactor
+RelationshipType: DrugToProtein | RelationName: Transporter | Action: Transporter
+RelationshipType: DrugToProtein | RelationName: Enzyme | Action: Product of
+RelationshipType: DrugToProtein | RelationName: Enzyme | Action: Ligand
+RelationshipType: DrugToProtein | RelationName: Target | Action: Inactivator
+RelationshipType: DrugToProtein | RelationName: Enzyme | Action: Regulator
+RelationshipType: DrugToProtein | RelationName: Target | Action: Carrier
+RelationshipType: DrugToProtein | RelationName: Target | Action: Disruptor
+RelationshipType: DrugToProtein | RelationName: Target | Action: Chaperone
+RelationshipType: DrugToProtein | RelationName: Target | Action: Antisense oligonucleotide
+RelationshipType: DrugToProtein | RelationName: Target | Action: Stabilization
+RelationshipType: DrugToProtein | RelationName: Transporter | Action: Weak inhibitor
+RelationshipType: DrugToProtein | RelationName: Target | Action: Chelator
+RelationshipType: DrugToProtein | RelationName: Target | Action: Degradation
+RelationshipType: DrugToProtein | RelationName: Target | Action: Allosteric modulator
+RelationshipType: DrugToProtein | RelationName: Transporter | Action: Antagonist
+RelationshipType: DrugToProtein | RelationName: Carrier | Action: Upregulator
+RelationshipType: DrugToProtein | RelationName: Target | Action: Inhibition of synthesis
+RelationshipType: DrugToProtein | RelationName: Target | Action: Gene replacement
+RelationshipType: DrugToProtein | RelationName: Target | Action: Nucleotide exchange blocker
+RelationshipType: DrugToProtein | RelationName: Target | Action: Neutralizer
+RelationshipType: DrugToProtein | RelationName: Target | Action: Inhibitory allosteric modulator

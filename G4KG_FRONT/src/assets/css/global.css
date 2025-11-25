@@ -1,0 +1,6 @@
+html, body {
+    height: 100%; /* 设置为 100% 高度 */
+    margin: 0; /* 去除默认外边距 */
+    overflow: hidden; /* 避免全局滚动条 */
+    font-family: 'Roboto', Arial, sans-serif; /* 使用统一的字体 */
+}

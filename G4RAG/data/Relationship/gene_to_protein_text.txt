@@ -1,0 +1,1 @@
+RelationshipType: GeneToProtein | RelationName: Code

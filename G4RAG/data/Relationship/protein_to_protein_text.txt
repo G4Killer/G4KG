@@ -1,0 +1,5 @@
+RelationshipType: ProteinToProtein | RelationName: Physical association
+RelationshipType: ProteinToProtein | RelationName: Direct interaction
+RelationshipType: ProteinToProtein | RelationName: Colocalization
+RelationshipType: ProteinToProtein | RelationName: Association
+RelationshipType: ProteinToProtein | RelationName: Dosage growth defect

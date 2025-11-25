@@ -1,0 +1,3 @@
+RelationshipType: DrugToDisease | RelationName: Indication
+RelationshipType: DrugToDisease | RelationName: Contraindication
+RelationshipType: DrugToDisease | RelationName: Off-label use

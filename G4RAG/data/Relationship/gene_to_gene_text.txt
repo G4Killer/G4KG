@@ -1,0 +1,17 @@
+RelationshipType: GeneToGene | RelationName: Negative genetic interaction
+RelationshipType: GeneToGene | RelationName: Positive genetic interaction
+RelationshipType: GeneToGene | RelationName: Synthetic lethality
+RelationshipType: GeneToGene | RelationName: Related functional gene
+RelationshipType: GeneToGene | RelationName: Related pseudogene
+RelationshipType: GeneToGene | RelationName: Potential readthrough sibling
+RelationshipType: GeneToGene | RelationName: Readthrough parent
+RelationshipType: GeneToGene | RelationName: Readthrough sibling
+RelationshipType: GeneToGene | RelationName: Readthrough child
+RelationshipType: GeneToGene | RelationName: Region parent
+RelationshipType: GeneToGene | RelationName: Phenotypic enhancement
+RelationshipType: GeneToGene | RelationName: Phenotypic suppression
+RelationshipType: GeneToGene | RelationName: Synthetic rescue
+RelationshipType: GeneToGene | RelationName: Dosage rescue
+RelationshipType: GeneToGene | RelationName: Dosage lethality
+RelationshipType: GeneToGene | RelationName: Synthetic growth defect
+RelationshipType: GeneToGene | RelationName: Region member

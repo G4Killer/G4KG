@@ -1,0 +1,29 @@
+.node-details-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.8); /* 轻微阴影 */
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* 条目之间的间隔 */
+}
+
+.attribute-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.attribute-key {
+    font-weight: bold;
+    color: #333;
+}
+
+.attribute-value {
+    color: #555;
+}

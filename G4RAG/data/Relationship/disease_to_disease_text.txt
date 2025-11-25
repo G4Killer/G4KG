@@ -1,0 +1,4 @@
+RelationshipType: DiseaseToDisease | RelationName: Broader
+RelationshipType: DiseaseToDisease | RelationName: Parent
+RelationshipType: DiseaseToDisease | RelationName: Child
+RelationshipType: DiseaseToDisease | RelationName: Synonym

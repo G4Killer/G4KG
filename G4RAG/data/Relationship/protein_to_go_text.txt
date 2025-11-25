@@ -1,0 +1,13 @@
+RelationshipType: ProteinToGO | RelationName: Located in
+RelationshipType: ProteinToGO | RelationName: Involved in
+RelationshipType: ProteinToGO | RelationName: Enables
+RelationshipType: ProteinToGO | RelationName: Part of
+RelationshipType: ProteinToGO | RelationName: Is active in
+RelationshipType: ProteinToGO | RelationName: Acts upstream of or within
+RelationshipType: ProteinToGO | RelationName: Colocalizes with
+RelationshipType: ProteinToGO | RelationName: Contributes to
+RelationshipType: ProteinToGO | RelationName: Acts upstream of
+RelationshipType: ProteinToGO | RelationName: Acts upstream of or within positive effect
+RelationshipType: ProteinToGO | RelationName: Acts upstream of positive effect
+RelationshipType: ProteinToGO | RelationName: Acts upstream of negative effect
+RelationshipType: ProteinToGO | RelationName: Acts upstream of or within negative effect

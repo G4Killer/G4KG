@@ -1,0 +1,13 @@
+RelationshipType: GeneToGO | RelationName: Enables
+RelationshipType: GeneToGO | RelationName: Contributes to
+RelationshipType: GeneToGO | RelationName: Is active in
+RelationshipType: GeneToGO | RelationName: Located in
+RelationshipType: GeneToGO | RelationName: Colocalizes with
+RelationshipType: GeneToGO | RelationName: Involved in
+RelationshipType: GeneToGO | RelationName: Acts upstream of or within
+RelationshipType: GeneToGO | RelationName: Acts upstream of positive effect
+RelationshipType: GeneToGO | RelationName: Acts upstream of
+RelationshipType: GeneToGO | RelationName: Acts upstream of or within positive effect
+RelationshipType: GeneToGO | RelationName: Acts upstream of or within negative effect
+RelationshipType: GeneToGO | RelationName: Part of
+RelationshipType: GeneToGO | RelationName: Acts upstream of negative effect

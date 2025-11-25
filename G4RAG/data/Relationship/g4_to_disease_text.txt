@@ -1,0 +1,1 @@
+RelationshipType: G4ToDisease | RelationName: Relate to
