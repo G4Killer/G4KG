@@ -66,6 +66,13 @@
   - All natural-language explanations and summaries must be in **Simplified Chinese by default**.
   - Only switch to English if the user explicitly asks for it.
 
+- **Git & Version Control**
+  - Do **not** run `git add`, `git commit`, `git push`, `git reset`, `git rebase` or any history-rewriting commands
+    unless I explicitly ask for them.
+  - It is OK to use `git status` and `git diff` to inspect the repo state, but **leave staging and commits to me**.
+  - Never delete dependency/build directories such as `node_modules/`, `dist/`, `build/`, `.venv/`, `__pycache__/`,
+    `.idea/` unless I explicitly request a cleanup.
+
 - **语言与解释**
   - 默认使用 **简体中文** 与作者沟通和解释修改思路。
   - 给出修改方案时，优先用“摘要 + 重点 diff”，而不是整段粘贴源码，
@@ -78,3 +85,5 @@
 - **命令与安全**
   - 默认只运行本地构建/测试命令，不在终端中主动发起 curl/wget 等外部网络请求。
   - 允许代码在运行过程中访问其正常依赖的外部服务（如 Neo4j、向量库、LLM API），但不要为了“试一下”随意改动线上配置。
+  - 在未经允许的情况下请不要执行任何 git 命令（包括 git add、git commit、git push）
+  - 在未经允许的情况下不要删除依赖目录
