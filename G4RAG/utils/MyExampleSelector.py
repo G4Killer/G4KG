@@ -1,6 +1,6 @@
 from typing import Dict, Any, List
-from langchain.prompts.example_selector import SemanticSimilarityExampleSelector
-from langchain.schema import Document
+from langchain_core.example_selectors import SemanticSimilarityExampleSelector
+from langchain_core.documents import Document
 
 
 class MyExampleSelector(SemanticSimilarityExampleSelector):

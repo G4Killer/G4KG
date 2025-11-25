@@ -189,22 +189,33 @@ async def conduct_search(state: AgentState, *, config: RunnableConfig) -> dict[s
         # 保存最后一个结果用于返回
         last_result = event
 
-    # 没有结果时使用空结果 - 循环后处理
+    # 记录子图的 Checkpoint，并用它回填缺失的流式结果
+    checkpoint_data = checkpointer.get(subgraph_config)
+    logging.info(f"📌 Subgraph Checkpoint: {checkpoint_data}")
+    channel_values = checkpoint_data.get("channel_values", {}) if isinstance(checkpoint_data, dict) else {}
+
+    # 没有通过流事件拿到结果时，优先尝试从checkpoint回填
     if not last_result:
-        logging.warning("子图未返回任何结果")
-        last_result = {}
-        # 流式写入子图结果为空的消息
-        if writer:
-            writer({"maingraph_event": "子图未返回结果"})
+        if channel_values:
+            logging.warning("子图流事件缺少最终结果，使用 checkpoint 回填")
+            last_result = channel_values
+        else:
+            logging.warning("子图未返回任何结果")
+            last_result = {}
+            # 流式写入子图结果为空的消息
+            if writer:
+                writer({"maingraph_event": "子图未返回结果"})
+    else:
+        # 如果流事件缺少部分字段，用checkpoint补全
+        if isinstance(last_result, dict) and channel_values:
+            for key, value in channel_values.items():
+                last_result.setdefault(key, value)
     
     # 将subgraph_received检查放在循环后，避免错误的"未收到子图事件"警告
     # 只在DEBUG级别记录这个信息，避免作为错误显示
     if not subgraph_received:
         logging.debug("子图诊断: 未收到任何子图事件流，可能stream_mode配置问题，但子图处理已完成")
         # 不再向前端发送此警告，因为这是内部诊断信息，不影响正常结果
-
-    # 记录子图的 `Checkpoint`
-    logging.info(f"📌 Subgraph Checkpoint: {checkpointer.get(subgraph_config)}")
 
     # 处理查询结果
     docs = last_result.get("documents", [])

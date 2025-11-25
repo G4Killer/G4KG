@@ -1,5 +1,5 @@
-from langchain.prompts import FewShotPromptTemplate, PromptTemplate
-from langchain.prompts.example_selector import SemanticSimilarityExampleSelector
+from langchain_core.prompts import FewShotPromptTemplate, PromptTemplate
+from langchain_core.example_selectors import SemanticSimilarityExampleSelector
 from langchain_weaviate.vectorstores import WeaviateVectorStore
 from src.embedding import AliyunEmbedding
 from utils.MyExampleSelector import MyExampleSelector

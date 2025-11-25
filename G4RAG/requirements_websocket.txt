@@ -4,3 +4,6 @@ websockets>=11.0.3
 python-multipart>=0.0.6
 pydantic>=2.0.0
 langchain-core>=0.1.4 
+langchain-community>=0.3.7
+dashscope>=1.16.0
+openai>=1.44.0

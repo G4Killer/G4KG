@@ -1,5 +1,5 @@
-from langchain.prompts.example_selector import SemanticSimilarityExampleSelector
-from langchain.prompts import FewShotPromptTemplate, PromptTemplate
+from langchain_core.example_selectors import SemanticSimilarityExampleSelector
+from langchain_core.prompts import FewShotPromptTemplate, PromptTemplate
 
 from utils.vectorstore_config import get_vectorstore_and_client
 

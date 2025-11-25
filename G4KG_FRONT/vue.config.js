@@ -6,7 +6,7 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://10.201.12.44:8081', // 指向后端地址
+        target: 'http://localhost:8081', // 本地运行后端时的地址
         changeOrigin: true,
         pathRewrite: { '^/api': '/api' } // 保留 /api 前缀
       }
