@@ -12,7 +12,7 @@ from sub_graph.subgraph_states import SubgraphState
 from utils.utils import config
 from prompts.prompt_templates import ROUTER_SYSTEM_PROMPT, MORE_INFO_SYSTEM_PROMPT, GENERAL_SYSTEM_PROMPT, \
     RESPONSE_SYSTEM_PROMPT, REWRITE_QUERY_PROMPT, G4KG_GENERAL_SYSTEM_PROMPT
-from src.chat_llm import ChatTongyiLLM
+from src.chat_llm import ChatTongyiLLM, build_tongyi_llm, get_api_key_from_config
 from main_graph.graph_states import AgentState, Router, InputState
 from sub_graph.build_subgraph import search_graph
 from langgraph.config import get_stream_writer
@@ -56,7 +56,8 @@ async def analyze_and_route_query(state: AgentState, *, config: RunnableConfig) 
     if writer:
         writer({"maingraph_event": "开始分析用户查询类型..."})
     
-    model = ChatTongyiLLM(model=Chat_tongyi, temperature=TEMPERATURE, streaming=True)
+    api_key = get_api_key_from_config(config)
+    model = build_tongyi_llm(model=Chat_tongyi, temperature=TEMPERATURE, streaming=True, api_key=api_key)
     template = Template(ROUTER_SYSTEM_PROMPT)
     prompt = template.render(schema=state.schema)
     messages = [{"role": "system", "content": prompt}] + state.messages
@@ -112,7 +113,7 @@ def route_query(state: AgentState) -> Literal["rewrite_query", "ask_for_more_inf
     else:
         raise ValueError(f"Unknown router type {_type}")
 
-async def rewrite_query(state: AgentState) -> dict:
+async def rewrite_query(state: AgentState, *, config: RunnableConfig) -> dict:
     """
     重新生成清晰的问题，以便传递到子图，确保完整的上下文。
     """
@@ -121,7 +122,8 @@ async def rewrite_query(state: AgentState) -> dict:
     if writer:
         writer({"maingraph_event": "生成最终回答: 处理查询结果并生成回复"})
 
-    model = ChatTongyiLLM(model=Chat_tongyi, temperature=TEMPERATURE, streaming=False)
+    api_key = get_api_key_from_config(config)
+    model = build_tongyi_llm(model=Chat_tongyi, temperature=TEMPERATURE, streaming=False, api_key=api_key)
     prompt = REWRITE_QUERY_PROMPT.format(context=state.messages)
     
     # 获取用户最后一条消息内容，如果没有则使用空字符串
@@ -244,7 +246,8 @@ async def ask_for_more_info(
 ) -> dict[str, list[BaseMessage]]:
     """生成询问用户更多信息的响应"""
         
-    model = ChatTongyiLLM(model=Chat_tongyi, temperature=TEMPERATURE, streaming=True)
+    api_key = get_api_key_from_config(config)
+    model = build_tongyi_llm(model=Chat_tongyi, temperature=TEMPERATURE, streaming=True, api_key=api_key)
     system_prompt = MORE_INFO_SYSTEM_PROMPT.format(logic=state.router["logic"])
     messages = [{"role": "system", "content": system_prompt}] + state.messages
     
@@ -262,7 +265,8 @@ async def respond_to_general_query(
 ) -> dict[str, list[BaseMessage]]:
     """生成普通查询的回答"""
         
-    model = ChatTongyiLLM(model=Chat_tongyi, temperature=TEMPERATURE, streaming=True)
+    api_key = get_api_key_from_config(config)
+    model = build_tongyi_llm(model=Chat_tongyi, temperature=TEMPERATURE, streaming=True, api_key=api_key)
     system_prompt = GENERAL_SYSTEM_PROMPT.format(logic=state.router["logic"])
     logging.info("---GENERATE GENERAL RESPONSE---")
     messages = [{"role": "system", "content": system_prompt}] + state.messages
@@ -285,7 +289,8 @@ async def respond_to_g4kg_general_query(
 ) -> dict[str, list[BaseMessage]]:
     """生成关于G4KG数据库的通用问题回答"""
         
-    model = ChatTongyiLLM(model=Chat_tongyi, temperature=TEMPERATURE, streaming=True)
+    api_key = get_api_key_from_config(config)
+    model = build_tongyi_llm(model=Chat_tongyi, temperature=TEMPERATURE, streaming=True, api_key=api_key)
     system_prompt = G4KG_GENERAL_SYSTEM_PROMPT.format(logic=state.router["logic"], schema=state.schema)
     logging.info("---GENERATE G4KG GENERAL RESPONSE---")
     messages = [{"role": "system", "content": system_prompt}] + state.messages
@@ -308,7 +313,8 @@ async def respond(state: AgentState, *, config: RunnableConfig) -> dict[str, lis
     """
     logging.info("--- RESPONSE GENERATION STEP ---")
         
-    model = ChatTongyiLLM(model=Chat_tongyi, temperature=TEMPERATURE, streaming=True)
+    api_key = get_api_key_from_config(config)
+    model = build_tongyi_llm(model=Chat_tongyi, temperature=TEMPERATURE, streaming=True, api_key=api_key)
 
     # 1. 构造可读文档字符串
     try:

@@ -1,6 +1,7 @@
 import asyncio
 import json
 import traceback
+import uuid
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from langchain_core.messages import HumanMessage, AIMessage
@@ -23,7 +24,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-config = {"configurable": {"thread_id": "1"}}
+# LangGraph基础配置模板，thread_id 和 api_key 将在会话时覆盖
+BASE_GRAPH_CONFIG = {"configurable": {"thread_id": "1", "api_key": None}}
 
 # 消息类型枚举
 MSG_TYPE_THINKING = "thinking"  # 思考过程
@@ -92,12 +94,20 @@ def extract_ai_message(messages):
     
     return None
 
-async def stream_graph_updates(user_input, websocket):
+async def stream_graph_updates(user_input, websocket, api_key: str):
     """
     处理用户输入，流式返回思考过程和回答
     直接处理LangGraph事件，提取思考步骤
     """
     try:
+        graph_config = {
+            "configurable": {
+                **BASE_GRAPH_CONFIG.get("configurable", {}),
+                "thread_id": getattr(websocket.state, "thread_id", str(uuid.uuid4())),
+                "api_key": api_key
+            }
+        }
+
         # 基础变量
         step_counter = 0  # 步骤计数器
         thinking_process = []  # 用于记录发送的思考步骤
@@ -113,7 +123,7 @@ async def stream_graph_updates(user_input, websocket):
         # 使用astream接收自定义事件
         async for chunk in graph.astream(
             {"messages": user_messages},
-            config,
+            graph_config,
             stream_mode="custom"  # 只接收自定义事件
         ):
             # 处理writer事件
@@ -194,7 +204,7 @@ async def stream_graph_updates(user_input, websocket):
         
         # 获取最终答案
         if not final_answer:
-            final_snapshot = graph.get_state(config)
+            final_snapshot = graph.get_state(graph_config)
             final_messages = final_snapshot.values.get("messages", [])
             final_answer = extract_ai_message(final_messages)
         
@@ -253,14 +263,24 @@ async def stream_graph_updates(user_input, websocket):
 async def rag_websocket(websocket: WebSocket):
     """WebSocket 服务器，允许 Vue 端连接"""
     await manager.connect(websocket)
+    websocket.state.thread_id = str(uuid.uuid4())
     try:
         while True:
             # 接收消息
             data = await websocket.receive_text()
             try:
                 # 解析消息
-                user_input = json.loads(data).get("message", "")
+                payload = json.loads(data)
+                user_input = payload.get("message", "")
+                api_key = payload.get("apiKey") or payload.get("api_key")
                 logger.info(f"收到用户查询: {user_input}")
+
+                # 校验用户上传的 API Key
+                if not api_key or not str(api_key).strip():
+                    await manager.send_message("请先添加 qwen-turbo API Key 后再继续交互", MSG_TYPE_ERROR, websocket)
+                    await manager.send_message("", MSG_TYPE_END, websocket)
+                    continue
+                api_key = str(api_key).strip()
                 
                 if not user_input.strip():
                     await manager.send_message("请输入有效的查询内容", MSG_TYPE_ERROR, websocket)
@@ -268,7 +288,7 @@ async def rag_websocket(websocket: WebSocket):
                     continue
                 
                 # 流式返回生成的回答，同时分离思考过程
-                await stream_graph_updates(user_input, websocket)
+                await stream_graph_updates(user_input, websocket, api_key)
                 
                 # 发送结束标记
                 await manager.send_message("", MSG_TYPE_END, websocket)

@@ -1,9 +1,32 @@
 <template>
   <div class="chatbot-container">
+    <el-dialog
+      v-model="apiDialogVisible"
+      title="配置聊天 API"
+      width="480px"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+    >
+      <p class="api-dialog-tip">当前仅支持 qwen-turbo，请输入您的专属 API Key 后再使用聊天。</p>
+      <el-input
+        v-model="apiKeyInput"
+        placeholder="请输入 qwen-turbo API Key"
+        show-password
+      />
+      <template #footer>
+        <el-button @click="clearApiKey">清空</el-button>
+        <el-button type="primary" @click="confirmApiKey">保存并开始聊天</el-button>
+      </template>
+    </el-dialog>
+
     <!-- Page Title -->
     <div class="header-content">
       <h1>G4KG Intelligent Assistant</h1>
       <p>A RAG-based intelligent Q&A system that answers questions about G4KG database</p>
+      <div class="api-toolbar">
+        <el-tag type="warning" v-if="!apiKeyReady">请先填写 qwen-turbo API Key</el-tag>
+        <el-button size="small" type="primary" plain @click="openApiDialog">配置 / 更新 API Key</el-button>
+      </div>
     </div>
 
     <!-- Chat Main Area -->
@@ -78,9 +101,9 @@
 
         <!-- Input and Send Buttons -->
         <div class="input-area">
-          <el-input v-model="userMessage" placeholder="Enter your question..." :disabled="loading" 
+          <el-input v-model="userMessage" placeholder="Enter your question..." :disabled="loading || !apiKeyReady" 
                   clearable @keyup.enter="sendMessage" />
-          <el-button type="primary" @click="sendMessage" :disabled="loading || !userMessage.trim()" :loading="loading">Send</el-button>
+          <el-button type="primary" @click="sendMessage" :disabled="loading || !userMessage.trim() || !apiKeyReady" :loading="loading">Send</el-button>
           <el-button @click="clearMessages" :disabled="messages.length === 0">Clear</el-button>
         </div>
       </div>
@@ -112,6 +135,10 @@ const currentThinkingSteps = ref([]);
 const liveThinkingProcess = ref([]);
 const showNewThinkingIndicator = ref(false);
 const exampleQueries = ['What is a G-quadruplex structure?', 'What main entity types are in G4KG database?', 'How to query the G4KG database?'];
+const apiStorageKey = 'chat_api_key';
+const apiKey = ref('');
+const apiKeyInput = ref('');
+const apiDialogVisible = ref(false);
 
 // WebSocket Related
 const wsState = ref(0); // 0=connecting, 1=connected, 3=error/closed
@@ -125,6 +152,7 @@ const WS_URL = "ws://localhost:8000/ws/rag";
 const MSG_TYPE = { THINKING: "thinking", ANSWER: "answer", ERROR: "error", END: "end" };
 
 // Computed Properties
+const apiKeyReady = computed(() => !!apiKey.value.trim());
 const connectionClass = computed(() => {
   if (wsState.value === 1) return 'connected';
   if (wsState.value === 0) return 'connecting';
@@ -141,6 +169,29 @@ const showConnectionStatus = (message, duration = 3000) => {
 };
 
 const setExampleQuery = (query) => userMessage.value = query;
+const openApiDialog = () => {
+  apiKeyInput.value = apiKey.value;
+  apiDialogVisible.value = true;
+};
+
+const confirmApiKey = () => {
+  if (!apiKeyInput.value || !apiKeyInput.value.trim()) {
+    showConnectionStatus('请填写有效的 API Key', 4000);
+    return;
+  }
+  apiKey.value = apiKeyInput.value.trim();
+  sessionStorage.setItem(apiStorageKey, apiKey.value);
+  apiDialogVisible.value = false;
+  showConnectionStatus('API Key 已保存', 1500);
+  initWebSocket();
+};
+
+const clearApiKey = () => {
+  apiKey.value = '';
+  apiKeyInput.value = '';
+  sessionStorage.removeItem(apiStorageKey);
+  apiDialogVisible.value = true;
+};
 
 const toggleThinking = (index) => showThinking[index] = !showThinking[index];
 
@@ -332,6 +383,11 @@ const handleWebSocketMessage = (event) => {
 
 // WebSocket Connection Management
 const initWebSocket = () => {
+  if (!apiKeyReady.value) {
+    openApiDialog();
+    showConnectionStatus('请先填写 qwen-turbo API Key', 4000);
+    return null;
+  }
   if (!ws || ws.readyState !== WebSocket.OPEN) {
     if (ws) {
       try { ws.close(); } catch (e) { console.error("Error closing old connection:", e); }
@@ -390,7 +446,7 @@ const initWebSocket = () => {
 // Message Sending
 const sendMessageToServer = (message) => {
   if (ws && ws.readyState === WebSocket.OPEN) {
-    ws.send(JSON.stringify({ message: message }));
+    ws.send(JSON.stringify({ message: message, apiKey: apiKey.value }));
   } else {
     pendingMessage.value = message;
     initWebSocket();
@@ -399,6 +455,11 @@ const sendMessageToServer = (message) => {
 
 const sendMessage = async () => {
   if (!userMessage.value.trim() || loading.value) return;
+  if (!apiKeyReady.value) {
+    showConnectionStatus('请先填写 API Key', 4000);
+    openApiDialog();
+    return;
+  }
   loading.value = true;
   messages.value.push({
     text: userMessage.value.trim(),
@@ -432,7 +493,14 @@ const clearMessages = () => {
 
 // Lifecycle Hooks
 onMounted(() => {
-  initWebSocket();
+  const savedKey = sessionStorage.getItem(apiStorageKey);
+  if (savedKey) {
+    apiKey.value = savedKey;
+    apiKeyInput.value = savedKey;
+    initWebSocket();
+  } else {
+    apiDialogVisible.value = true;
+  }
   window.addEventListener('scroll', handleScroll, true);
   if (messagesContainer.value) {
     messagesContainer.value.addEventListener('scroll', checkThinkingVisibility);
@@ -485,6 +553,20 @@ onBeforeUnmount(() => {
 .header-content p {
   font-size: 1.5rem;
   line-height: 1.6;
+}
+
+.api-toolbar {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+
+.api-dialog-tip {
+  margin-bottom: 12px;
+  color: #666;
+  line-height: 1.5;
 }
 
 .chat-section {

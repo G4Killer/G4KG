@@ -10,7 +10,7 @@ from langchain_neo4j.graphs.neo4j_graph import Neo4jGraph
 from langgraph.config import get_stream_writer
 
 from utils.utils import checkpointer, process_streaming_content
-from src.chat_llm import ChatTongyiLLM
+from src.chat_llm import ChatTongyiLLM, build_tongyi_llm, get_api_key_from_config
 from sub_graph.subgraph_states import SubgraphState, SubRouter
 from prompts.prompt_templates import SUBGRAPH_ROUTER_SYSTEM_PROMPT, EXTRACTION_SYSTEM_PROMPT, SUBGRAPH_RELATIONSHIP_REFINE_PROMPT, RELATIONSHIP_MAPPING_TEXT
 from utils.utils import config
@@ -68,7 +68,8 @@ async def analyze_and_route_subgraph_query(
     if writer:
         writer({"subgraph_event": "开始分析查询类型"})
 
-    model = ChatTongyiLLM(model=Chat_tongyi, temperature=TEMPERATURE, streaming=True)
+    api_key = get_api_key_from_config(config)
+    model = build_tongyi_llm(model=Chat_tongyi, temperature=TEMPERATURE, streaming=True, api_key=api_key)
     messages = [
         {"role": "system", "content": SUBGRAPH_ROUTER_SYSTEM_PROMPT},
         {"role": "human", "content": state.question},
@@ -152,7 +153,8 @@ def vector_search_chain(state: SubgraphState) -> dict:
 # ---------------- Step 1: 实体与关系提取 ----------------
 async def extract_entities_and_relationships(state: SubgraphState, *, config: RunnableConfig) -> dict:
     
-    model = ChatTongyiLLM(model=Chat_tongyi, temperature=TEMPERATURE, streaming=False)
+    api_key = get_api_key_from_config(config)
+    model = build_tongyi_llm(model=Chat_tongyi, temperature=TEMPERATURE, streaming=False, api_key=api_key)
     messages = [
         {"role": "system", "content": EXTRACTION_SYSTEM_PROMPT},
         {"role": "human", "content": state.question},
@@ -232,7 +234,8 @@ async def refine_relationships(state: SubgraphState, *, config: RunnableConfig) 
         original_relationships=state.relationships
     )
 
-    model = ChatTongyiLLM(model=Chat_tongyi, temperature=TEMPERATURE, streaming=False)
+    api_key = get_api_key_from_config(config)
+    model = build_tongyi_llm(model=Chat_tongyi, temperature=TEMPERATURE, streaming=False, api_key=api_key)
 
     # **调用 LLM 让其返回单个关系名称，确保包含user角色的消息**
     response = await model.ainvoke([
@@ -320,7 +323,8 @@ async def generate_cypher_query(state: SubgraphState, *, config: RunnableConfig)
     )
 
     # 2. 调用 LLM 获取回复，确保包含user角色的消息
-    model = ChatTongyiLLM(model=Chat_tongyi, temperature=TEMPERATURE, streaming=False)
+    api_key = get_api_key_from_config(config)
+    model = build_tongyi_llm(model=Chat_tongyi, temperature=TEMPERATURE, streaming=False, api_key=api_key)
     response = await model.ainvoke([
         {"role": "system", "content": prompt},
         {"role": "user", "content": "请根据以上信息生成一个合适的Cypher查询语句。"}
@@ -399,5 +403,4 @@ builder.add_edge("execute_cypher_query", END)
 
 # 3. **编译图**
 search_graph = builder.compile(checkpointer=subgraph_checkpointer)
-
 
