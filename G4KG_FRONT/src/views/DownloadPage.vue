@@ -11,18 +11,33 @@
       <h2>Nodes Data</h2>
       <ul class="download-list">
         <li>
-          <p>Predicted quadruplex sequence (PQSs) in human genome:</p>
-          <a href="#" class="download-link">[Download Link]</a>
+          <p>Disease data:</p>
+          <a href="/data/Disease.csv" class="download-link" download>[Download]</a>
         </li>
         <li>
-          <p>Predicted quadruplex sequence (PQSs) in human genome:</p>
-          <a href="#" class="download-link">[Download Link]</a>
+          <p>Drug data:</p>
+          <a href="/data/Drug.csv" class="download-link" download>[Download]</a>
         </li>
         <li>
-          <p>Predicted quadruplex sequence (PQSs) in human genome:</p>
-          <a href="#" class="download-link">[Download Link]</a>
+          <p>G4 (G-quadruplex) data:</p>
+          <a href="/data/G4.csv" class="download-link" download>[Download]</a>
         </li>
-        <!-- 继续添加其他节点数据 -->
+        <li>
+          <p>Gene data:</p>
+          <a href="/data/Gene.csv" class="download-link" download>[Download]</a>
+        </li>
+        <li>
+          <p>Gene Ontology (GO) data:</p>
+          <a href="/data/GO.csv" class="download-link" download>[Download]</a>
+        </li>
+        <li>
+          <p>Pathway data:</p>
+          <a href="/data/Pathway.csv" class="download-link" download>[Download]</a>
+        </li>
+        <li>
+          <p>Protein data:</p>
+          <a href="/data/Protein.csv" class="download-link" download>[Download]</a>
+        </li>
       </ul>
     </div>
 
@@ -31,18 +46,77 @@
       <h2>Relationships Data</h2>
       <ul class="download-list">
         <li>
-          <p>Predicted quadruplex sequence (PQSs) in human genome:</p>
-          <a href="#" class="download-link">[Download Link]</a>
+          <p>Disease to Disease relationships:</p>
+          <a href="/data/DiseaseToDisease.csv" class="download-link" download>[Download]</a>
         </li>
         <li>
-          <p>Predicted quadruplex sequence (PQSs) in human genome:</p>
-          <a href="#" class="download-link">[Download Link]</a>
+          <p>Drug to Disease relationships:</p>
+          <a href="/data/DrugToDisease.csv" class="download-link" download>[Download]</a>
         </li>
         <li>
-          <p>Predicted quadruplex sequence (PQSs) in human genome:</p>
-          <a href="#" class="download-link">[Download Link]</a>
+          <p>Drug to Drug relationships:</p>
+          <a href="/data/DrugToDrug.csv" class="download-link" download>[Download]</a>
         </li>
-        <!-- 继续添加其他关系数据 -->
+        <li>
+          <p>Drug to Protein relationships:</p>
+          <a href="/data/DrugToProtein.csv" class="download-link" download>[Download]</a>
+        </li>
+        <li>
+          <p>G4 to Disease relationships:</p>
+          <a href="/data/G4ToDisease.csv" class="download-link" download>[Download]</a>
+        </li>
+        <li>
+          <p>G4 to Gene relationships:</p>
+          <a href="/data/G4ToGene.csv" class="download-link" download>[Download]</a>
+        </li>
+        <li>
+          <p>Gene to Disease relationships:</p>
+          <a href="/data/GeneToDisease.csv" class="download-link" download>[Download]</a>
+        </li>
+        <li>
+          <p>Gene to Gene relationships:</p>
+          <a href="/data/GeneToGene.csv" class="download-link" download>[Download]</a>
+        </li>
+        <li>
+          <p>Gene to GO relationships:</p>
+          <a href="/data/GeneToGO.csv" class="download-link" download>[Download]</a>
+        </li>
+        <li>
+          <p>Gene to Pathway relationships:</p>
+          <a href="/data/GeneToPathway.csv" class="download-link" download>[Download]</a>
+        </li>
+        <li>
+          <p>Gene to Protein relationships:</p>
+          <a href="/data/GeneToProtein.csv" class="download-link" download>[Download]</a>
+        </li>
+        <li>
+          <p>GO to GO relationships:</p>
+          <a href="/data/GOToGO.csv" class="download-link" download>[Download]</a>
+        </li>
+        <li>
+          <p>Pathway to Pathway relationships:</p>
+          <a href="/data/PathwayToPathway.csv" class="download-link" download>[Download]</a>
+        </li>
+        <li>
+          <p>Protein to G4 relationships:</p>
+          <a href="/data/ProteinToG4.csv" class="download-link" download>[Download]</a>
+        </li>
+        <li>
+          <p>Protein to Gene relationships:</p>
+          <a href="/data/ProteinToGene.csv" class="download-link" download>[Download]</a>
+        </li>
+        <li>
+          <p>Protein to GO relationships:</p>
+          <a href="/data/ProteinToGO.csv" class="download-link" download>[Download]</a>
+        </li>
+        <li>
+          <p>Protein to Pathway relationships:</p>
+          <a href="/data/ProteinToPathway.csv" class="download-link" download>[Download]</a>
+        </li>
+        <li>
+          <p>Protein to Protein relationships:</p>
+          <a href="/data/ProteinToProtein.csv" class="download-link" download>[Download]</a>
+        </li>
       </ul>
     </div>
   </div>
